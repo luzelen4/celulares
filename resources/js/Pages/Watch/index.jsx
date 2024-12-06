@@ -1,12 +1,15 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Head } from '@inertiajs/react';
 import { Inertia } from '@inertiajs/inertia';
 
-export default function ProductIndex({ products }) {
-
+export default function ProductIndex() {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDetailModal, setShowDetailModal] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
+    const [productToShow, setProductToShow] = useState(null);
 
     const openDeleteModal = (id) => {
         setProductToDelete(id);
@@ -25,6 +28,26 @@ export default function ProductIndex({ products }) {
         
         closeDeleteModal();
     };
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('http://127.0.0.1:8000/api/watches');
+
+            if (!response.ok) {
+              throw new Error('Error en la respuesta de la API');
+            }
+            const data = await response.json();
+            setData(data);
+            setLoading(false);
+          } catch (error) {
+            console.error('Error al obtener los datos:', error);
+            setLoading(false);
+          }
+        };
+    
+        fetchData();  // Llamar a la función async
+      }, []);
 
     return (
         <AuthenticatedLayout
@@ -54,7 +77,7 @@ export default function ProductIndex({ products }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((product) => (
+                            {data.map((product) => (
                                 <tr key={product.watch_id} className="border-t border-gray-200">
                                     <td className="px-4 py-2 text-sm text-gray-800">{product.watch_name}</td>
                                     <td className="px-4 py-2 text-sm text-gray-800">{product.brand}</td>
