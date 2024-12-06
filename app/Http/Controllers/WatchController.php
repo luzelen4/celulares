@@ -18,12 +18,8 @@ class WatchController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $watchs = Watch::with('categories')->get();
-
-        return Inertia::render('Watch/index', [
-            'products' => $watchs
-        ]);
+    {   
+        return Inertia::render('Watch/index');
     }
 
     /**
@@ -31,13 +27,7 @@ class WatchController extends Controller
      */
     public function showStore()
     {
-        $categories = Category::all()->toArray();
-
-        return Inertia::render('Watch/create', [
-            'categories' => $categories,
-            'product' => [],
-            'readonly' => false
-        ]);
+        return Inertia::render('Watch/create');
     }
 
     /**
