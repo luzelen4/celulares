@@ -30,11 +30,11 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Productos
                                 </NavLink>
-                                {/* <NavLink
+                                <NavLink
                                     href={route('categories.dashboard')}
                                 >
                                     Categorias
-                                </NavLink> */}
+                                </NavLink>
                             </div>
                         </div>
 

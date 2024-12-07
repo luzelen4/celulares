@@ -105,14 +105,14 @@ export default function ProductIndex() {
                         <h2 className="text-xl font-bold mb-4">Confirmar eliminación</h2>
                         <p className="mb-4">¿Estás seguro de que deseas eliminar este producto?</p>
                         <div className="flex justify-end space-x-2">
-                            <button 
-                                onClick={closeDeleteModal} 
+                            <button
+                                onClick={closeDeleteModal}
                                 className="bg-gray-300 text-black px-4 py-2 rounded-md hover:bg-gray-400"
                             >
                                 Cancelar
                             </button>
-                            <button 
-                                onClick={handleConfirmDelete} 
+                            <button
+                                onClick={handleConfirmDelete}
                                 className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                             >
                                 Eliminar
