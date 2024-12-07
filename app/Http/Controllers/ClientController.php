@@ -15,23 +15,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-         // Obtener todas las categorías disponibles
-         $categories = Category::all();
- 
-         // Si se selecciona una categoría, filtrar los productos
-        //  $watches = Watch::whereHas('categories', function ($query) use ($request) {
-        //      if ($request->has('category')) {
-        //          $query->where('name', $request->category); // Filtrar por nombre de categoría
-        //      }
-        //  })->get();
-        
-        $watches = Watch::all();
-
-         // Devolver la vista con los productos y las categorías
-         return Inertia::render('Clients/index', [
-            'categories' => $categories,
-            'watches' => $watches
-        ]);
+         return Inertia::render('Clients/index');
     }
 
     /**

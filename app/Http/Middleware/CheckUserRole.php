@@ -16,13 +16,12 @@ class CheckUserRole
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        
-        // Verificar el rol del usuario
-        // if ($user->role === 'admin') {
-        //     return redirect()->route('watches.dashboard'); 
-        // } else if ($user->role === 'client') {
-        //     return redirect()->route('client.shop');
-        // }
+
+        if ($user->role === 'admin') {
+            return redirect()->route('watches.dashboard');
+        } else if ($user->role === 'client') {
+            return redirect()->route('client.shop');
+        }
 
         return $next($request);
     }

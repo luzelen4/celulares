@@ -1,7 +1,7 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/react";
 
-export default function NavBar({ header, categories }) {
+export default function NavBar({ header, categories, setSelectedCategory }) {
     return (
         <>
             <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
@@ -20,8 +20,20 @@ export default function NavBar({ header, categories }) {
                 </Link>
             </nav>
             <div class="bg-blue-500 text-white p-4 flex overflow-x-auto space-x-4">
+            <button
+                class="bg-blue-400 py-2 px-6 rounded hover:bg-blue-600 focus:outline-none"
+                onClick={() => setSelectedCategory(null)}
+            >
+                Todas
+            </button>
             {categories.map((category) => (
-                <button class="bg-blue-400 py-2 px-6 rounded hover:bg-blue-600 focus:outline-none">{category.category_name}</button>
+                <button
+                    key={category.category_id}
+                    onClick={() => setSelectedCategory(category)}
+                    class="bg-blue-400 py-2 px-6 rounded hover:bg-blue-600 focus:outline-none"
+                >
+                    {category.category_name}
+                </button>
             ))}
             </div>
         </>

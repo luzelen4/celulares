@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryApiController;
 use App\Http\Controllers\Api\WatchApiController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
@@ -13,10 +14,11 @@ use Inertia\Inertia;
 //     // Route::get('/prueba', function () {
 //     //     return 'Hola Mundo';
 //     // });
-    
+
 //     // Route::post('/prueba', function () {
 //     //     return 'login';
 //     // });
 // });
 
 Route::resource('watches', WatchApiController::class);
+Route::resource('categories', CategoryApiController::class);
