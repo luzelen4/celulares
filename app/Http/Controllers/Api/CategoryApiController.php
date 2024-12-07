@@ -23,4 +23,19 @@ class CategoryApiController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    /**
+    * Remove the specified resource from storage.
+    */
+   final public function destroy(Category $category)
+   {
+       try {
+           if ($category->delete()) {
+               return response()->json(['message' => 'Registro eliminaado exitosamente'], 200);
+           }
+           return response()->json(['error' => 'Algo salió mal'], 500);
+       } catch (Exception $e) {
+           return response()->json(['error' => $e->getMessage()], 500);
+       }
+   }
 }

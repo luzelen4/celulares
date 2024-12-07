@@ -22,7 +22,27 @@ export default function ProductIndex() {
 
     const handleConfirmDelete  = () => {
         if (productToDelete) {
-            Inertia.delete(route('watches.delete', productToDelete));
+            const deleteCategory = async () => {
+                try {
+                    const response = await fetch(`http://127.0.0.1:8000/api/categories/${productToDelete}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta de la API');
+                    }
+                    setLoading(false);
+                } catch (error) {
+                    console.error('Error al eliminar el producto:', error);
+                } finally {
+                    setLoading(false);
+                }
+            }
+
+            deleteCategory();
         }
 
         closeDeleteModal();
@@ -31,17 +51,17 @@ export default function ProductIndex() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await fetch('http://127.0.0.1:8000/api/categories');
+                const response = await fetch('http://127.0.0.1:8000/api/categories');
 
-            if (!response.ok) {
-                throw new Error('Error en la respuesta de la API');
-            }
-            const data = await response.json();
-            setData(data);
-            setLoading(false);
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la API');
+                }
+                const data = await response.json();
+                setData(data);
+                setLoading(false);
             } catch (error) {
-            console.error('Error al obtener los datos:', error);
-            setLoading(false);
+                console.error('Error al obtener los datos:', error);
+                setLoading(false);
             }
         };
 
