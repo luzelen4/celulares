@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-export default function CategoryList({ categories, loading }) {
+export default function CategoryList({ categories, fetchCategories, openDeleteModal, loading }) {
     const [showDetailModal, setShowDetailModal] = useState(false);
-    const [productToShow, setProductToShow] = useState(null);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     const [showEditModal, setShowEditModal] = useState(false);
 
@@ -15,22 +15,23 @@ export default function CategoryList({ categories, loading }) {
     }
 
     const openDetailModal = (category) => {
-        setProductToShow(category);
+        setSelectedProduct(category);
         setShowDetailModal(true);
     }
 
     const closeDetailModal = () => {
-        setProductToShow(null);
+        setSelectedProduct(null);
         setShowDetailModal(false);
     }
 
     const openEditModal = (category) => {
-        setProductToShow(category);
+        setSelectedProduct(category);
+        setFormData({ category_name: category.category_name })
         setShowEditModal(true);
     }
 
     const closeEditModal = () => {
-        setProductToShow(null);
+        setSelectedProduct(null);
         setShowEditModal(false);
     }
 
@@ -45,18 +46,18 @@ export default function CategoryList({ categories, loading }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/categories', {
+            const response = await fetch(`http://127.0.0.1:8000/api/categories/${selectedProduct.category_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(formData)
             });
 
             if (!response.ok) {
                 throw new Error('Error al crear la categoría');
             }
-            closeForm();
+            closeEditModal();
         } catch (error) {
             console.error('Error:', error);
         } finally {
@@ -123,7 +124,7 @@ export default function CategoryList({ categories, loading }) {
                         <div className="mt-4 space-y-4">
                             <div className="flex justify-between">
                                 <span className="font-medium text-gray-700">Nombre:</span>
-                                <span className="text-gray-600">{productToShow.category_name}</span>
+                                <span className="text-gray-600">{selectedProduct.category_name}</span>
                             </div>
                         </div>
                         <div className="mt-6 flex justify-between">

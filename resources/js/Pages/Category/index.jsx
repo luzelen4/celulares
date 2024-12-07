@@ -32,6 +32,22 @@ export default function ProductIndex() {
         setShowDeleteModal(false);
     };
 
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/categories');
+
+            if (!response.ok) {
+                throw new Error('Error en la respuesta de la API');
+            }
+            const data = await response.json();
+            setData(data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error al obtener los datos:', error);
+            setLoading(false);
+        }
+    };
+
     const handleConfirmDelete = () => {
         if (productToDelete) {
             const deleteCategory = async () => {
@@ -50,6 +66,7 @@ export default function ProductIndex() {
                 } catch (error) {
                     console.error('Error al eliminar el producto:', error);
                 } finally {
+                    fetchData();
                     setLoading(false);
                 }
             }
@@ -58,22 +75,6 @@ export default function ProductIndex() {
         }
 
         closeDeleteModal();
-    };
-
-    const fetchData = async () => {
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/categories');
-
-            if (!response.ok) {
-                throw new Error('Error en la respuesta de la API');
-            }
-            const data = await response.json();
-            setData(data);
-            setLoading(false);
-        } catch (error) {
-            console.error('Error al obtener los datos:', error);
-            setLoading(false);
-        }
     };
 
     useEffect(() => {
@@ -111,7 +112,7 @@ export default function ProductIndex() {
                     {showCreateForm ? (
                         <CategoryCreateForm closeForm={showCategoryListHandler} fetchCategories={fetchData} />
                     ) : (
-                        <CategoryList categories={data} fetchCategories={fetchData} loading={loading} closeDeleteModal={closeDeleteModal} />
+                        <CategoryList categories={data} fetchCategories={fetchData} loading={loading} openDeleteModal={openDeleteModal} />
                     )}
                 </div>
             </div>

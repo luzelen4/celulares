@@ -17,9 +17,9 @@ class CategoryApiController extends Controller
     public function index()
     {
         try {
-            $watchs = Category::all();
+            $categories = Category::all();
 
-            return response()->json($watchs);
+            return response()->json($categories);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -36,6 +36,22 @@ class CategoryApiController extends Controller
             Category::create($validated);
 
             return response()->json(['message' => 'Registro creado exitosamente'], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(StoreCategoryRequest $request, Category $category)
+    {
+        try {
+            $validated = $request->validated();
+
+            $category->update($validated);
+
+            return response()->json(['message' => 'Registro actualizada exitosamente'], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
