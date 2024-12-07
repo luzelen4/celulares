@@ -13,16 +13,16 @@ const ProductForm = ({categories, product, readonly}) => {
     brand: product.brand || '',
     stock: product.stock || 0,
     image: product.image || '',
-    category_id: product.category_id || '',
+    category_id: product.category_id || ''
   });
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (product.watch_id) {
-      put(route('watches.update', product.watch_id)); // Para editar
+      put(route('watches.update.', product.watch_id)); // Para editar
     } else {
-      post(route('watches.store')); // Para crear
+      post(route('watches.store.')); // Para crear
     }
   };
 
@@ -139,9 +139,14 @@ const ProductForm = ({categories, product, readonly}) => {
                   />
                   {errors.slug && <span className="text-sm text-red-500">{errors.slug}</span>}
                 </div>
-                
+
                 {readonly? (
-                   <Link href={route('watches.update.show', product.watch_id)} className="mt-4 w-full bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Editar</Link>
+                    <Link
+                      href={route('watches.update.show', product.watch_id)}
+                      className="mt-4 w-full bg-blue-500 block text-white text-center px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      Editar
+                    </Link>
                 ) : (
                   <button
                     type="submit"
