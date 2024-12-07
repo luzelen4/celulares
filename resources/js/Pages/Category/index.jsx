@@ -31,7 +31,7 @@ export default function ProductIndex() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await fetch('http://127.0.0.1:8000/api/watches');
+            const response = await fetch('http://127.0.0.1:8000/api/categories');
 
             if (!response.ok) {
                 throw new Error('Error en la respuesta de la API');
@@ -63,29 +63,27 @@ export default function ProductIndex() {
                     <h1 className="text-3xl font-bold text-gray-800 mb-4">Relojes</h1>
 
                     <Link href={route('watches.store.show')} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 mb-4 inline-block">
-                        Crear Producto
+                        Crear Categoria
                     </Link>
 
                     <table className="min-w-full mt-6 table-auto border-separate border-spacing-0">
                         <thead>
                             <tr className="bg-gray-100">
+                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">id</th>
                                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Nombre</th>
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Marca</th>
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Precio</th>
                                 <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((product) => (
-                                <tr key={product.watch_id} className="border-t border-gray-200">
-                                    <td className="px-4 py-2 text-sm text-gray-800">{product.watch_name}</td>
-                                    <td className="px-4 py-2 text-sm text-gray-800">{product.brand}</td>
-                                    <td className="px-4 py-2 text-sm text-gray-800">${product.price}</td>
+                            {data.map((category) => (
+                                <tr key={category.category_id} className="border-t border-gray-200">
+                                    <td className="px-4 py-2 text-sm text-gray-800">{category.category_id}</td>
+                                    <td className="px-4 py-2 text-sm text-gray-800">{category.category_name}</td>
                                     <td className="px-4 py-2 text-sm">
-                                        <Link href={route('watches.show', product.slug)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">Ver</Link>
-                                        <Link href={route('watches.update.show', product.slug)} className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mr-2">Editar</Link>
+                                        <Link className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">Ver</Link>
+                                        <Link className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mr-2">Editar</Link>
                                         <button
-                                            onClick={() => openDeleteModal(product.slug)}
+                                            onClick={() => openDeleteModal(category.category_id)}
                                             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                                         >
                                             Eliminar
@@ -103,7 +101,7 @@ export default function ProductIndex() {
                     <div className="absolute inset-0 bg-black opacity-50"></div>
                     <div className="bg-white p-6 rounded-lg shadow-lg relative z-10">
                         <h2 className="text-xl font-bold mb-4">Confirmar eliminación</h2>
-                        <p className="mb-4">¿Estás seguro de que deseas eliminar este producto?</p>
+                        <p className="mb-4">¿Estás seguro de que deseas eliminar esta categoria?</p>
                         <div className="flex justify-end space-x-2">
                             <button
                                 onClick={closeDeleteModal}

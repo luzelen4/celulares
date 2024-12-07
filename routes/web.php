@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WatchController;
@@ -56,6 +57,14 @@ Route::prefix('/dashboard/watches')->name('watches.')->middleware(['auth', 'admi
     Route::prefix('/{slug}/show')->name('show')->group(function () {
         Route::get('/', [WatchController::class, 'show']); // watches.show
     });
+});
+
+Route::prefix('/dashboard/categories')->name('categories.')->middleware(['auth', 'adminValidation'])->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('dashboard'); // categories.dashboard
+
+    // Route::prefix('/create')->name('store.')->group(function () {
+    //     Route::get('/', [CategoryController::class, 'show'])->name('show'); // categories.store.show
+    // });
 });
 
 require __DIR__.'/auth.php';

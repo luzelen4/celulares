@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+use function Termwind\render;
 
 class CategoryController extends Controller
 {
@@ -12,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Category/index');
     }
 
     /**
@@ -36,7 +39,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return Inertia::render('Category/create');
     }
 
     /**
