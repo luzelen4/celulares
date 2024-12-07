@@ -22,6 +22,16 @@ class Watch extends Model
         'category_id'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function scopeSlug ($query, $slug)
+    {
+        return $query->where('slug', $slug);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_watches', 'watch_id', 'category_id');

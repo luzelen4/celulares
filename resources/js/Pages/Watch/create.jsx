@@ -19,8 +19,8 @@ const ProductForm = ({categories, product, readonly}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (product.watch_id) {
-      put(route('watches.update.', product.watch_id)); // Para editar
+    if (product.slug) {
+      put(route('watches.update.', product.slug)); // Para editar
     } else {
       post(route('watches.store.')); // Para crear
     }
@@ -142,7 +142,7 @@ const ProductForm = ({categories, product, readonly}) => {
 
                 {readonly? (
                     <Link
-                      href={route('watches.update.show', product.watch_id)}
+                      href={route('watches.update.show', product.slug)}
                       className="mt-4 w-full bg-blue-500 block text-white text-center px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       Editar

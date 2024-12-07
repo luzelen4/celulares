@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WatchController;
@@ -8,10 +9,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::prefix('/client/shop')->middleware(['auth', 'clientValidation'])->name('client.')->group(function () {
     Route::get('/', [ClientController::class, 'index'])->name('shop');
-    // Route::get('/', [WatchController::class, 'index'])->name('shop');
 });
 
 Route::get('/welcome', function () {
@@ -21,7 +22,7 @@ Route::get('/welcome', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -45,14 +46,14 @@ Route::prefix('/dashboard/watches')->name('watches.')->middleware(['auth', 'admi
         Route::get('/', [WatchController::class, 'showStore'])->name('show'); // watches.store.show
         Route::post('/', [WatchController::class, 'store']);
     });
-    Route::prefix('/{watch}')->name('update.')->group(function () {
+    Route::prefix('/{slug}')->name('update.')->group(function () {
         Route::get('/', [WatchController::class, 'showUpdate'])->name('show'); // watches.update.show
         Route::put('/', [WatchController::class, 'update']);
     });
-    Route::prefix('/{watch}/delete')->name('delete')->group(function () {
+    Route::prefix('/{slug}/delete')->name('delete')->group(function () {
         Route::delete('/', [WatchController::class, 'destroy']); // watches.delete
     });
-    Route::prefix('/{watch}/show')->name('show')->group(function () {
+    Route::prefix('/{slug}/show')->name('show')->group(function () {
         Route::get('/', [WatchController::class, 'show']); // watches.show
     });
 });

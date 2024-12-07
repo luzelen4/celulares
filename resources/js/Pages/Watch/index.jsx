@@ -82,10 +82,10 @@ export default function ProductIndex() {
                                     <td className="px-4 py-2 text-sm text-gray-800">{product.brand}</td>
                                     <td className="px-4 py-2 text-sm text-gray-800">${product.price}</td>
                                     <td className="px-4 py-2 text-sm">
-                                        <Link href={route('watches.show', product.watch_id)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">Ver</Link>
-                                        <Link href={route('watches.update.show', product.watch_id)} className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mr-2">Editar</Link>
+                                        <Link href={route('watches.show', product.slug)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">Ver</Link>
+                                        <Link href={route('watches.update.show', product.slug)} className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mr-2">Editar</Link>
                                         <button
-                                            onClick={() => openDeleteModal(product.watch_id)}
+                                            onClick={() => openDeleteModal(product.slug)}
                                             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                                         >
                                             Eliminar
