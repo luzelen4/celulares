@@ -45,7 +45,7 @@ export default function ProductIndex() {
             }
         };
 
-        fetchData();  // Llamar a la función async
+        fetchData();  
     }, []);
 
     return (

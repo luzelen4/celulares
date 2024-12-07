@@ -18,7 +18,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <Head title="Welcome" />
 
             <div>
-                <p>¡Hola! Bienvenido a <strong>Tecnología y más</strong>.</p>
+                <p>¡Hola! Bienvenido a <strong>Relojes Gama</strong>.</p>
                 <p>¿Qué deseas hacer a continuación?</p>
                 <div className='flex justify-between items-center w-full max-w-md mx-auto p-4 '>
                     <a href={route('login')} className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'>Iniciar Sesión</a>

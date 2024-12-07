@@ -20,9 +20,9 @@ const ProductForm = ({categories, product, readonly}) => {
     e.preventDefault();
 
     if (product.slug) {
-      put(route('watches.update.', product.slug)); // Para editar
+      put(route('watches.update.', product.slug));
     } else {
-      post(route('watches.store.')); // Para crear
+      post(route('watches.store.')); 
     }
   };
 
@@ -30,7 +30,7 @@ const ProductForm = ({categories, product, readonly}) => {
     <AuthenticatedLayout
             header={
               <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                  Dashboard tecnología y más
+                  Dashboard Relojes Gama
               </h2>
             }
         >

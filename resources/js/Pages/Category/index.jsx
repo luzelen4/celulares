@@ -17,7 +17,7 @@ export default function ProductIndex() {
         setShowCreateForm(true);
     };
 
-    // Función para mostrar la tabla de categorías
+    
     const showCategoryListHandler = () => {
         setShowCreateForm(false);
     };
@@ -78,7 +78,7 @@ export default function ProductIndex() {
     };
 
     useEffect(() => {
-        fetchData();  // Llamar a la función async
+        fetchData();  
     }, []);
 
     return (
