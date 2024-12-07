@@ -2,13 +2,26 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import React, { useState, useEffect } from 'react';
 import { Link, Head } from '@inertiajs/react';
 import { Inertia } from '@inertiajs/inertia';
+import CategoryCreateForm from './CategoryCreateForm';
+import CategoryList from './CategoryList';
+
 
 export default function ProductIndex() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showCreateModal, setShowCreateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
+    const [showCreateForm, setShowCreateForm] = useState(false);
 
+    const showCreateFormHandler = () => {
+        setShowCreateForm(true);
+    };
+
+    // Función para mostrar la tabla de categorías
+    const showCategoryListHandler = () => {
+        setShowCreateForm(false);
+    };
 
     const openDeleteModal = (id) => {
         setProductToDelete(id);
@@ -20,7 +33,7 @@ export default function ProductIndex() {
         setShowDeleteModal(false);
     };
 
-    const handleConfirmDelete  = () => {
+    const handleConfirmDelete = () => {
         if (productToDelete) {
             const deleteCategory = async () => {
                 try {
@@ -48,23 +61,23 @@ export default function ProductIndex() {
         closeDeleteModal();
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://127.0.0.1:8000/api/categories');
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/categories');
 
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta de la API');
-                }
-                const data = await response.json();
-                setData(data);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error al obtener los datos:', error);
-                setLoading(false);
+            if (!response.ok) {
+                throw new Error('Error en la respuesta de la API');
             }
-        };
+            const data = await response.json();
+            setData(data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error al obtener los datos:', error);
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         fetchData();  // Llamar a la función async
     }, []);
 
@@ -82,37 +95,25 @@ export default function ProductIndex() {
                 <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
                     <h1 className="text-3xl font-bold text-gray-800 mb-4">Relojes</h1>
 
-                    <Link href={route('watches.store.show')} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 mb-4 inline-block">
+                    <button
+                        onClick={showCreateFormHandler}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 mb-4 inline-block"
+                    >
                         Crear Categoria
-                    </Link>
+                    </button>
 
-                    <table className="min-w-full mt-6 table-auto border-separate border-spacing-0">
-                        <thead>
-                            <tr className="bg-gray-100">
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">id</th>
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Nombre</th>
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map((category) => (
-                                <tr key={category.category_id} className="border-t border-gray-200">
-                                    <td className="px-4 py-2 text-sm text-gray-800">{category.category_id}</td>
-                                    <td className="px-4 py-2 text-sm text-gray-800">{category.category_name}</td>
-                                    <td className="px-4 py-2 text-sm">
-                                        <Link className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">Ver</Link>
-                                        <Link className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mr-2">Editar</Link>
-                                        <button
-                                            onClick={() => openDeleteModal(category.category_id)}
-                                            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                                        >
-                                            Eliminar
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <button
+                        onClick={showCategoryListHandler}
+                        className="bg-blue-500 text-white ml-3 px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 mb-4 inline-block"
+                    >
+                        Ver Categorías
+                    </button>
+
+                    {showCreateForm ? (
+                        <CategoryCreateForm closeForm={showCategoryListHandler} fetchCategories={fetchData} />
+                    ) : (
+                        <CategoryList categories={data} loading={loading} />
+                    )}
                 </div>
             </div>
 
