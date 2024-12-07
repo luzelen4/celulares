@@ -46,14 +46,14 @@ Route::prefix('/dashboard/watches')->name('watches.')->middleware(['auth', 'admi
         Route::get('/', [WatchController::class, 'showStore'])->name('show'); // watches.store.show
         Route::post('/', [WatchController::class, 'store']);
     });
-    Route::prefix('/{watch}')->name('update.')->group(function () {
+    Route::prefix('/{slug}')->name('update.')->group(function () {
         Route::get('/', [WatchController::class, 'showUpdate'])->name('show'); // watches.update.show
         Route::put('/', [WatchController::class, 'update']);
     });
-    Route::prefix('/{watch}/delete')->name('delete')->group(function () {
+    Route::prefix('/{slug}/delete')->name('delete')->group(function () {
         Route::delete('/', [WatchController::class, 'destroy']); // watches.delete
     });
-    Route::prefix('/{watch}/show')->name('show')->group(function () {
+    Route::prefix('/{slug}/show')->name('show')->group(function () {
         Route::get('/', [WatchController::class, 'show']); // watches.show
     });
 });

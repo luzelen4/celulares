@@ -51,13 +51,13 @@ class WatchController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Watch $watch)
+    public function show(Watch $slug)
     {
         $categories = Category::all()->toArray();
 
         return Inertia::render('Watch/create', [
             'categories' => $categories,
-            'product' => $watch,
+            'product' => $slug,
             'readonly' => true
         ]);
     }
@@ -65,13 +65,13 @@ class WatchController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function showUpdate(Watch $watch)
+    public function showUpdate(Watch $slug)
     {
         $categories = Category::all();
 
         return Inertia::render('Watch/create', [
             'categories' => $categories,
-            'product' => $watch,
+            'product' => $slug,
             'readonly' => false
         ]);
     }
@@ -79,11 +79,11 @@ class WatchController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Watch $watch)
+    public function update(UpdateProductRequest $request, Watch $slug)
     {
         $validated = $request->validated();
 
-        $watch->update($validated);
+        $slug->update($validated);
 
         return redirect()->route('watches.dashboard');
     }
@@ -91,9 +91,9 @@ class WatchController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Watch $watch)
+    public function destroy(Watch $slug)
     {
-        $watch->delete();
+        $slug->delete();
 
         return redirect()->route('watches.dashboard');
     }
