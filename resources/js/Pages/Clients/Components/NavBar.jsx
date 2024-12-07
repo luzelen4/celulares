@@ -1,4 +1,5 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
+import { Link } from "@inertiajs/react";
 
 export default function NavBar({ header, categories }) {
     return (
@@ -9,7 +10,14 @@ export default function NavBar({ header, categories }) {
                     {/* <ApplicationLogo></ApplicationLogo> */}
                     <span class="font-bold text-xl">{header}</span>
                 </div>
-                <button class="bg-red-600 py-2 px-4 rounded hover:bg-red-700">Cerrar sesión</button>
+                <Link
+                    href={route('logout')}
+                    method="post"
+                    as="button"
+                    class="bg-red-600 py-2 px-4 rounded hover:bg-red-700"
+                >
+                        Cerrar sesión
+                </Link>
             </nav>
             <div class="bg-blue-500 text-white p-4 flex overflow-x-auto space-x-4">
             {categories.map((category) => (
