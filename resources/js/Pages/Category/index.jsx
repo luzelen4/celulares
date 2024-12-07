@@ -9,7 +9,6 @@ import CategoryList from './CategoryList';
 export default function ProductIndex() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showCreateModal, setShowCreateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
     const [showCreateForm, setShowCreateForm] = useState(false);
@@ -112,7 +111,7 @@ export default function ProductIndex() {
                     {showCreateForm ? (
                         <CategoryCreateForm closeForm={showCategoryListHandler} fetchCategories={fetchData} />
                     ) : (
-                        <CategoryList categories={data} loading={loading} />
+                        <CategoryList categories={data} fetchCategories={fetchData} loading={loading} closeDeleteModal={closeDeleteModal} />
                     )}
                 </div>
             </div>
