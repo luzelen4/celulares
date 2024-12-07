@@ -30,23 +30,23 @@ export default function ProductIndex() {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
+            try {
             const response = await fetch('http://127.0.0.1:8000/api/watches');
 
             if (!response.ok) {
-              throw new Error('Error en la respuesta de la API');
+                throw new Error('Error en la respuesta de la API');
             }
             const data = await response.json();
             setData(data);
             setLoading(false);
-          } catch (error) {
+            } catch (error) {
             console.error('Error al obtener los datos:', error);
             setLoading(false);
-          }
+            }
         };
 
         fetchData();  // Llamar a la función async
-      }, []);
+    }, []);
 
     return (
         <AuthenticatedLayout
