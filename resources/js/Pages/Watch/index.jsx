@@ -7,9 +7,8 @@ export default function ProductIndex() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showDetailModal, setShowDetailModal] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
-    const [productToShow, setProductToShow] = useState(null);
+
 
     const openDeleteModal = (id) => {
         setProductToDelete(id);
@@ -25,7 +24,7 @@ export default function ProductIndex() {
         if (productToDelete) {
             Inertia.delete(route('watches.delete', productToDelete));
         }
-        
+
         closeDeleteModal();
     };
 
@@ -45,7 +44,7 @@ export default function ProductIndex() {
             setLoading(false);
           }
         };
-    
+
         fetchData();  // Llamar a la función async
       }, []);
 
@@ -85,7 +84,7 @@ export default function ProductIndex() {
                                     <td className="px-4 py-2 text-sm">
                                         <Link href={route('watches.show', product.watch_id)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">Ver</Link>
                                         <Link href={route('watches.update.show', product.watch_id)} className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mr-2">Editar</Link>
-                                        <button 
+                                        <button
                                             onClick={() => openDeleteModal(product.watch_id)}
                                             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                                         >

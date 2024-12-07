@@ -43,7 +43,7 @@ Route::prefix('/dashboard/watches')->name('watches.')->middleware(['auth', 'admi
     Route::get('/', [WatchController::class, 'index'])->name('dashboard'); // watches.dashboard
     Route::prefix('/create')->name('store.')->group(function () {
         Route::get('/', [WatchController::class, 'showStore'])->name('show'); // watches.store.show
-        Route::post('/', [WatchController::class, 'store']); 
+        Route::post('/', [WatchController::class, 'store']);
     });
     Route::prefix('/{watch}')->name('update.')->group(function () {
         Route::get('/', [WatchController::class, 'showUpdate'])->name('show'); // watches.update.show

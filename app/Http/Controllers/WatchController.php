@@ -18,7 +18,7 @@ class WatchController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         return Inertia::render('Watch/index');
     }
 
@@ -27,7 +27,13 @@ class WatchController extends Controller
      */
     public function showStore()
     {
-        return Inertia::render('Watch/create');
+        $categories = Category::all();
+
+        return Inertia::render('Watch/create', [
+            'categories' => $categories,
+            'product' => [],
+            'readonly' => false
+        ]);
     }
 
     /**
@@ -76,7 +82,7 @@ class WatchController extends Controller
     public function update(UpdateProductRequest $request, Watch $watch)
     {
         $validated = $request->validated();
-        
+
         $watch->update($validated);
 
         return redirect()->route('watches.dashboard');
