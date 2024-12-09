@@ -26,7 +26,7 @@ export default function NavBar({ header, categories, setSelectedCategory }) {
             >
                 Todas
             </button>
-            {categories.map((category) => (
+            {/* {categories.map((category) => (
                 <button
                     key={category.category_id}
                     onClick={() => setSelectedCategory(category)}
@@ -34,7 +34,7 @@ export default function NavBar({ header, categories, setSelectedCategory }) {
                 >
                     {category.category_name}
                 </button>
-            ))}
+            ))} */}
             </div>
         </>
     );

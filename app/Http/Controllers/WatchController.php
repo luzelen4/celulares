@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Watch;
 use Inertia\Inertia;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class WatchController extends Controller
 {
@@ -60,7 +61,11 @@ class WatchController extends Controller
             $validated['image'] = $fileUrl;
         }
 
-        Watch::create($validated);
+        $watch = Watch::create($validated);
+
+        Mail::to(env('MAIL_FROM_ADDRESS'))
+            ->send(new \App\Mail\ProductCreatedMail($watch));
+
 
         return redirect()->route('watches.dashboard');
     }
