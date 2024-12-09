@@ -8,9 +8,6 @@ use App\Models\Category;
 use App\Models\Watch;
 use Inertia\Inertia;
 use Illuminate\Routing\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
 
 class WatchController extends Controller
 {
@@ -42,6 +39,26 @@ class WatchController extends Controller
     public function store(StoreProductRequest $request)
     {
         $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            $extension = $file->getClientOriginalExtension();
+
+           if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid file extension',
+                ], 400);
+            }
+
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            $filePath = $file->storeAs('images', $fileName, 'public');
+            $fileUrl = asset('storage/' . $filePath);
+
+            $validated['image'] = $fileUrl;
+        }
 
         Watch::create($validated);
 
