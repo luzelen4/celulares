@@ -4,7 +4,7 @@
     <div class="container mt-3">
         <div class="row">
             <div class="col-12">
-                <h1 class="alert alert-info text-center">{{ $product->watch_name }}</h1>
+                <h1 class="alert alert-info text-center">{{ $product->nombre_celular }}</h1>
             </div>
             <div class="col-12">
                 <div class="row">
@@ -12,22 +12,22 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>Marca</th>
-                                <td>{{ $product->brand }}</td>
+                                <td>{{ $product->marca }}</td>
                             </tr>
                             <tr>
                                 <th>Descripción</th>
-                                <td>{{ $product->description }}</td>
+                                <td>{{ $product->descripcion }}</td>
                             </tr>
                             <tr>
                                 <th>Nro. Unidades</th>
-                                <td>{{ $product->stock }}</td>
+                                <td>{{ $product->cantidad_en_bodega }}</td>
                             </tr>
                             <tr>
                                 <th>Precio:</th>
-                                <td>${{ number_format($product->price, 2, ',', '.') }}</td>
+                                <td>${{ number_format($product->precio, 2, ',', '.') }}</td>
                             </tr>
                             <tr>
-                                <th>Imagen</th>
+                                <th>url_imagenn</th>
                                 <td>
                                     <img src="{{ asset("$product->photo_name") }}"  height="120" width="120">
                                 </td>

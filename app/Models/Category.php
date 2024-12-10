@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'category_id';
+    protected $primaryKey = 'cod_categoria';
 
     protected $fillable = [
         'category_name'
@@ -17,6 +17,6 @@ class Category extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Watch::class, 'category_watches', 'category_id', 'watch_id');
+        return $this->belongsToMany(Phone::class, 'category_phones', 'cod_categoria', 'celular_id');
     }
 }

@@ -22,14 +22,14 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'watch_name' => ['string','max:255'],
-            'slug' => ['required','string'],
-            'description' => ['nullable','string'],
-            'price' => ['required','numeric','min:0'],
-            'brand' => ['nullable','string'],
-            'stock' => ['required','integer','min:0'],
-            'image' => ['required','file','mimes:jpg,jpeg,png'],
-            'category_id' => ['required','exists:categories,category_id']
+            'nombre_celular' => ['string','max:255'],
+            'slug' => ['string'],
+            'descripcion' => ['nullable','string'],
+            'precio' => ['required','numeric','min:0'],
+            'marca' => ['nullable','string'],
+            'cantidad_en_bodega' => ['required','integer','min:0'],
+            'url_imagen' => ['required','file','mimes:jpg,jpeg,png'],
+            'cod_categoria' => ['required','exists:categories,cod_categoria']
         ];
     }
 }

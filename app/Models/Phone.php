@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Watch extends Model
+class Phone extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'watch_id';
+    protected $primaryKey = 'celular_id';
 
     protected $fillable = [
-        'watch_name',
+        'nombre_celular',
         'slug',
-        'description',
-        'price',
-        'brand',
-        'stock',
-        'image',
-        'category_id'
+        'descripcion',
+        'precio',
+        'marca',
+        'cantidad_en_bodega',
+        'url_imagen',
+        'cod_categoria'
     ];
 
     public function getRouteKeyName()
@@ -34,6 +34,6 @@ class Watch extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_watches', 'watch_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'category_phones', 'celular_id', 'cod_categoria');
     }
 }

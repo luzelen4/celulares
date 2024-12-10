@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Watch;
+use App\Models\Phone;
 use Illuminate\Auth\Access\Response;
 
-class WatchPolicy
+class PhonePolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class WatchPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Watch $watch): bool
+    public function view(User $user, Phone $watch): bool
     {
         return true;
     }
@@ -35,7 +35,7 @@ class WatchPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Watch $watch): bool
+    public function update(User $user, Phone $watch): bool
     {
         return true;
     }
@@ -43,7 +43,7 @@ class WatchPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Watch $watch): bool
+    public function delete(User $user, Phone $watch): bool
     {
         return true;
     }
@@ -51,7 +51,7 @@ class WatchPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Watch $watch): bool
+    public function restore(User $user, Phone $watch): bool
     {
         return false;
     }
@@ -59,7 +59,7 @@ class WatchPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Watch $watch): bool
+    public function forceDelete(User $user, Phone $watch): bool
     {
         return false;
     }

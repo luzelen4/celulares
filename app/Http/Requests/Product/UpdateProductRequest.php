@@ -22,14 +22,14 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'watch_name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
-            'brand' => ['nullable', 'string'],
-            'stock' => ['required', 'integer', 'min:0'],
-            'image' => ['nullable', 'string'],
-            'category_id' => ['required', 'exists:categories,category_id']
+            'nombre_celular' => [ 'string', 'max:255'],
+            'slug' => ['string'],
+            'descripcion' => ['nullable', 'string'],
+            'precio' => ['numeric', 'min:0'],
+            'marca' => ['nullable', 'string'],
+            'cantidad_en_bodega' => ['integer', 'min:0'],
+            'url_imagen' =>['nullable', 'file', 'mimes:jpg,jpeg,png'],
+            'cod_categoria' => [ 'exists:categories,cod_categoria']
         ];
     }
 }

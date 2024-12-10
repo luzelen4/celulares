@@ -28,7 +28,7 @@ export default function NavBar({ header, categories, setSelectedCategory }) {
             </button>
              {categories.map((category) => (
                 <button
-                    key={category.category_id}
+                    key={category.cod_categoria}
                     onClick={() => setSelectedCategory(category)}
                     class="bg-gray-400 py-2 px-6 rounded hover:bg-gray-600 focus:outline-none"
                 >

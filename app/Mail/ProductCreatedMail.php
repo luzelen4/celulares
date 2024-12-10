@@ -3,7 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Product;
-use App\Models\Watch;
+use App\Models\Phone;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -20,7 +20,7 @@ class ProductCreatedMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(Watch $watch)
+    public function __construct(Phone $watch)
     {
         $this->product = $watch;
     }

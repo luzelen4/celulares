@@ -6,7 +6,7 @@ export default function Dashboard() {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard Relojes Gama
+                    Dashboard | Pro-Celulares
                 </h2>
             }
         >

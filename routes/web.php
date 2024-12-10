@@ -3,12 +3,16 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WatchController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
+Route::get('/', function () {
+    return redirect('/welcome');
+});
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
@@ -35,27 +39,21 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified', 'roleValidation'])->name('dashboard');
 
-// Route::get('/dashboard/watches', [WatchController::class, 'index'])->middleware(['auth'])->name('watches.dashboard');
-// Route::get('/dashboard/watches/create', [WatchController::class, 'create'])->middleware(['auth'])->name('watches.store.show');
-// Route::post('/dashboard/watches', [WatchController::class, 'store'])->middleware(['auth'])->name('watches.store.show');
-// Route::get('/dashboard/watches/{watch}/edit', [WatchController::class, 'edit'])->middleware(['auth'])->name('watches.update.show');
-// Route::put('/dashboard/watches/{watch}/edit', [WatchController::class, 'update'])->middleware(['auth']);
-
-Route::prefix('/dashboard/watches')->name('watches.')->middleware(['auth', 'adminValidation'])->group(function () {
-    Route::get('/', [WatchController::class, 'index'])->name('dashboard'); // watches.dashboard
+Route::prefix('/dashboard/phones')->name('phones.')->middleware(['auth', 'adminValidation'])->group(function () {
+    Route::get('/', [PhoneController::class, 'index'])->name('dashboard'); // Ruta: phones.dashboard
     Route::prefix('/create')->name('store.')->group(function () {
-        Route::get('/', [WatchController::class, 'showStore'])->name('show'); // watches.store.show
-        Route::post('/', [WatchController::class, 'store']);
+        Route::get('/', [PhoneController::class, 'showStore'])->name('show'); // Ruta: phones.store.show
+        Route::post('/', [PhoneController::class, 'store']);
     });
     Route::prefix('/{slug}')->name('update.')->group(function () {
-        Route::get('/', [WatchController::class, 'showUpdate'])->name('show'); // watches.update.show
-        Route::put('/', [WatchController::class, 'update']);
+        Route::get('/', [PhoneController::class, 'showUpdate'])->name('show'); // Ruta: phones.update.show
+        Route::put('/', [PhoneController::class, 'update']);
     });
     Route::prefix('/{slug}/delete')->name('delete')->group(function () {
-        Route::delete('/', [WatchController::class, 'destroy']); // watches.delete
+        Route::delete('/', [PhoneController::class, 'destroy']); // Ruta: phones.delete
     });
     Route::prefix('/{slug}/show')->name('show')->group(function () {
-        Route::get('/', [WatchController::class, 'show']); // watches.show
+        Route::get('/', [PhoneController::class, 'show']); // Ruta: phones.show
     });
 });
 

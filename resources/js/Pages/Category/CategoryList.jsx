@@ -46,7 +46,7 @@ export default function CategoryList({ categories, fetchCategories, openDeleteMo
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/categories/${selectedProduct.category_id}`, {
+            const response = await fetch(`http://127.0.0.1:8000/api/categories/${selectedProduct.cod_categoria}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,14 +78,14 @@ export default function CategoryList({ categories, fetchCategories, openDeleteMo
                 </thead>
                 <tbody>
                     {categories.map((category) => (
-                        <tr key={category.category_id} className="border-t border-gray-200">
-                            <td className="px-4 py-2 text-sm text-gray-800">{category.category_id}</td>
-                            <td className="px-4 py-2 text-sm text-gray-800">{category.category_name}</td>
+                        <tr key={category.cod_categoria} className="border-t border-gray-200">
+                            <td className="px-4 py-2 text-sm text-gray-800">{category.cod_categoria}</td>
+                            <td className="px-4 py-2 text-sm text-gray-800">{category.nombre_categoria}</td>
                             <td className="px-4 py-2 text-sm">
                                 <button onClick={() => openDetailModal(category)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mr-2">Ver</button>
                                 <button onClick={() => openEditModal(category)} className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 mr-2">Editar</button>
                                 <button
-                                    onClick={() => openDeleteModal(category.category_id)}
+                                    onClick={() => openDeleteModal(category.cod_categoria)}
                                     className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                                 >
                                     Eliminar
@@ -124,7 +124,7 @@ export default function CategoryList({ categories, fetchCategories, openDeleteMo
                         <div className="mt-4 space-y-4">
                             <div className="flex justify-between">
                                 <span className="font-medium text-gray-700">Nombre:</span>
-                                <span className="text-gray-600">{selectedProduct.category_name}</span>
+                                <span className="text-gray-600">{selectedProduct.nombre_categoria}</span>
                             </div>
                         </div>
                         <div className="mt-6 flex justify-between">

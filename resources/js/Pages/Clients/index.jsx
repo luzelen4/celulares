@@ -1,6 +1,6 @@
 import GuestLayout from "@/Layouts/GuestLayout";
 import NavBar from "./Components/NavBar";
-import WatchesList from "./Components/WatchesList";
+import PhonesList from "./Components/PhonesList";
 import Footer from "./Components/Footer";
 import { useEffect, useState } from "react";
 
@@ -9,24 +9,24 @@ export default function ClientIndex() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loadingCategories, setLoadingCategories] = useState(true);
-    const [loadingWatches, setLoadingWatches] = useState(true);
+    const [loadingPhonees, setLoadingPhonees] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [watches, setWatches] = useState([]);
+    const [phones, setPhones] = useState([]);
 
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/api/watches');
+                const response = await fetch('http://127.0.0.1:8000/api/phones');
                 if (!response.ok) {
                     throw new Error('Error en la respuesta de la API');
                 }
                 const data = await response.json();
-                setWatches(data);
+                setPhones(data);
             } catch (error) {
                 setError(error.message);
             } finally {
-                setLoadingWatches(false);
+                setLoadingPhonees(false);
             }
         };
 
@@ -49,7 +49,7 @@ export default function ClientIndex() {
         fetchCategories();
     }, []);
 
-    if (loadingWatches || loadingCategories) {
+    if (loadingPhonees || loadingCategories) {
         return <div>Cargando...</div>;
     }
 
@@ -61,9 +61,9 @@ export default function ClientIndex() {
         <>
             <NavBar categories={categories} setSelectedCategory={setSelectedCategory}></NavBar>
 
-            <WatchesList watches={watches} liading={loading}></WatchesList>
+            <PhonesList phones={phones} loading={loading}></PhonesList>
 
-            <Footer enterprise_name="Relojes Gama" author="Jhon Estiven Gutierrez"></Footer>
+            <Footer enterprise_name="Pro-Celulares" author="Luz Elena Vargas"></Footer>
         </>
     );
 };

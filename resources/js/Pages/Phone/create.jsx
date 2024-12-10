@@ -5,23 +5,36 @@ import { Link, Head } from "@inertiajs/react";
 
 const ProductForm = ({ categories, product, readonly }) => {
     const { data, setData, post, put, processing, errors } = useForm({
-        watch_name: product.watch_name || "",
+        nombre_celular: product.nombre_celular || "",
         slug: product.slug || "",
-        description: product.description || "",
-        price: product.price || "",
-        brand: product.brand || "",
-        stock: product.stock || 0,
-        image: null,
-        category_id: product.category_id || "",
+        descripcion: product.descripcion || "",
+        precio: product.precio || "",
+        marca: product.marca || "",
+        cantidad_en_bodega: product.cantidad_en_bodega || 0,
+        url_imagen: null,
+        cod_categoria: product.cod_categoria || ""
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (product.slug) {
-      put(route('watches.update.', product.slug)); 
+    const formData = new FormData();
+
+    // Agregar cada campo al FormData
+    Object.keys(data).forEach((key) => {
+        if (key === "url_imagen" && data[key]) {
+            formData.append(key, data[key]); // Archivo
+        } else {
+            formData.append(key, data[key]); // Otros datos
+        }
+    });
+
+    // Determinar si es actualización o creación
+    if (product.slug) {
+        formData.append("_method", "PUT"); // Simular método PUT
+        put(route("phones.update.", product.slug), formData);
     } else {
-      post(route('watches.store.')); 
+        post(route("phones.store."), formData);
     }
   };
 
@@ -29,7 +42,7 @@ const ProductForm = ({ categories, product, readonly }) => {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard Relojes Gama
+                    Dashboard Pro-Celulares
                 </h2>
             }
         >
@@ -39,15 +52,16 @@ const ProductForm = ({ categories, product, readonly }) => {
                 <h1 className="text-3xl font-bold text-gray-800 mb-6">
                     {readonly
                         ? "Detalle del producto"
-                        : product.watch_id
+                        : product.celular_id
                         ? "Editar Producto"
                         : "Crear Producto"}
                 </h1>
 
                 <form
                     onSubmit={handleSubmit}
-                    method="put"
+                    method="post"
                     className="space-y-4"
+                    encType="multipart/form-data"
                 >
                     <div>
                         <label className="block text-sm font-medium text-gray-700">
@@ -55,16 +69,16 @@ const ProductForm = ({ categories, product, readonly }) => {
                         </label>
                         <input
                             type="text"
-                            value={data.watch_name}
+                            value={data.nombre_celular}
                             onChange={(e) =>
-                                setData("watch_name", e.target.value)
+                                setData("nombre_celular", e.target.value)
                             }
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             readOnly={readonly}
                         />
-                        {errors.watch_name && (
+                        {errors.nombre_celular && (
                             <span className="text-sm text-red-500">
-                                {errors.watch_name}
+                                {errors.nombre_celular}
                             </span>
                         )}
                     </div>
@@ -92,9 +106,9 @@ const ProductForm = ({ categories, product, readonly }) => {
                             Descripción
                         </label>
                         <textarea
-                            value={data.description}
+                            value={data.descripcion}
                             onChange={(e) =>
-                                setData("description", e.target.value)
+                                setData("descripcion", e.target.value)
                             }
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             readOnly={readonly}
@@ -107,8 +121,8 @@ const ProductForm = ({ categories, product, readonly }) => {
                         </label>
                         <input
                             type="number"
-                            value={data.price}
-                            onChange={(e) => setData("price", e.target.value)}
+                            value={data.precio}
+                            onChange={(e) => setData("precio", e.target.value)}
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             readOnly={readonly}
                         />
@@ -120,8 +134,8 @@ const ProductForm = ({ categories, product, readonly }) => {
                         </label>
                         <input
                             type="text"
-                            value={data.brand}
-                            onChange={(e) => setData("brand", e.target.value)}
+                            value={data.marca}
+                            onChange={(e) => setData("marca", e.target.value)}
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             readOnly={readonly}
                         />
@@ -129,12 +143,12 @@ const ProductForm = ({ categories, product, readonly }) => {
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700">
-                            Stock
+                            Cantidad en Bodega
                         </label>
                         <input
                             type="number"
-                            value={data.stock}
-                            onChange={(e) => setData("stock", e.target.value)}
+                            value={data.cantidad_en_bodega}
+                            onChange={(e) => setData("cantidad_en_bodega", e.target.value)}
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             readOnly={readonly}
                         />
@@ -145,9 +159,9 @@ const ProductForm = ({ categories, product, readonly }) => {
                             Categoría
                         </label>
                         <select
-                            value={data.category_id}
+                            value={data.cod_categoria}
                             onChange={(e) =>
-                                setData("category_id", e.target.value)
+                                setData("cod_categoria", e.target.value)
                             }
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             readOnly={readonly}
@@ -155,16 +169,16 @@ const ProductForm = ({ categories, product, readonly }) => {
                             <option value="">Seleccionar categoría</option>
                             {categories.map((category) => (
                                 <option
-                                    key={category.category_id}
-                                    value={category.category_id}
+                                    key={category.cod_categoria}
+                                    value={category.cod_categoria}
                                 >
-                                    {category.category_name}
+                                    {category.nombre_categoria}
                                 </option>
                             ))}
                         </select>
-                        {errors.category_id && (
+                        {errors.cod_categoria && (
                             <span className="text-sm text-red-500">
-                                {errors.category_id}
+                                {errors.cod_categoria}
                             </span>
                         )}
                     </div>
@@ -176,21 +190,21 @@ const ProductForm = ({ categories, product, readonly }) => {
                         <input
                             type="file"
                             onChange={(e) =>
-                                setData("image", e.target.files[0])
+                                setData("url_imagen", e.target.files[0])
                             }
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                             readOnly={readonly}
                         />
-                        {errors.image && (
+                        {errors.url_imagen && (
                             <span className="text-sm text-red-500">
-                                {errors.image}
+                                {errors.url_imagen}
                             </span>
                         )}
                     </div>
 
                     {readonly ? (
                         <Link
-                            href={route("watches.update.show", product.slug)}
+                            href={route("phones.update.show", product.slug)}
                             className="mt-4 w-full bg-blue-500 block text-white text-center px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             Editar
@@ -201,7 +215,7 @@ const ProductForm = ({ categories, product, readonly }) => {
                             disabled={processing}
                             className="mt-4 w-full bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            {product.watch_id
+                            {product.celular_id
                                 ? "Actualizar Producto"
                                 : "Crear Producto"}
                         </button>

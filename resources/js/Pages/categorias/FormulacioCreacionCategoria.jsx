@@ -16,12 +16,12 @@ export default function CategoryCreateForm({ closeForm, fetchCategories }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/categories/create', {
+            const response = await fetch('http://127.0.0.1:8000/api/categories', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
             });
 
             if (!response.ok) {
@@ -41,7 +41,7 @@ export default function CategoryCreateForm({ closeForm, fetchCategories }) {
 
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label htmlFor="category_name" className="block text-gray-600 mb-2">Nombre de la categoría</label>
+                    <label htmlFor="nombre_categoria" className="block text-gray-600 mb-2">Nombre de la categoría</label>
                     <input
                         type="text"
                         id="nombre_categoria"

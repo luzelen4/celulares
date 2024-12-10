@@ -2,7 +2,7 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link } from '@inertiajs/react';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
-    const handleImageError = () => {
+    const handleurl_imagenError = () => {
         document
             .getElementById('screenshot-container')
             ?.classList.add('!hidden');
@@ -17,12 +17,15 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         <GuestLayout>
             <Head title="Welcome" />
 
-            <div>
-                <p>¡Hola! Bienvenido a <strong>Relojes Gama</strong>.</p>
-                <p>¿Qué deseas hacer a continuación?</p>
-                <div className='flex justify-between items-center w-full max-w-md mx-auto p-4 '>
-                    <a href={route('login')} className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'>Iniciar Sesión</a>
-                    <a href={route('register')} className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600'>Registrarme</a>
+            <div className="container text-center mt-5">
+                <p>¡Hola! Bienvenido a <strong><em>Pro-Celulares</em></strong>.</p>
+                <div className="d-flex justify-content-between align-items-center mx-auto p-4" style={{ maxWidth: "400px" }}>
+                    <a href={route('login')} className="btn btn-primary px-4 py-2">
+                        Iniciar Sesión
+                    </a>
+                    <a href={route('register')} className="btn btn-success px-4 py-2">
+                        Registrarme
+                    </a>
                 </div>
             </div>
         </GuestLayout>

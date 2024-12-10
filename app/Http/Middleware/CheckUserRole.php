@@ -18,7 +18,7 @@ class CheckUserRole
         $user = Auth::user();
 
         if ($user->role === 'admin') {
-            return redirect()->route('watches.dashboard');
+            return redirect()->route('phones.dashboard');
         } else if ($user->role === 'client') {
             return redirect()->route('client.shop');
         }

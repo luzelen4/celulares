@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use App\Models\Watch; // Ensure that the Watch model exists in the App\Models namespace
+use App\Models\Phone; // Ensure that the Phone model exists in the App\Models namespace
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         Category::factory(3)->create();
-        Watch::factory(5)->create();
+        Phone::factory(5)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',

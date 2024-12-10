@@ -17,7 +17,6 @@ export default function ProductIndex() {
         setShowCreateForm(true);
     };
 
-    
     const showCategoryListHandler = () => {
         setShowCreateForm(false);
     };
@@ -78,14 +77,14 @@ export default function ProductIndex() {
     };
 
     useEffect(() => {
-        fetchData();  
+        fetchData();
     }, []);
 
     return (
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Relojes Gama
+                    Pro-celulares
                 </h2>
             }
         >
@@ -93,8 +92,6 @@ export default function ProductIndex() {
 
             <div className="flex items-center justify-center p-6">
                 <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-4">Relojes</h1>
-
                     <button
                         onClick={showCreateFormHandler}
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 mb-4 inline-block"
